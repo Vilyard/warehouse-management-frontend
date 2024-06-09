@@ -1,3 +1,5 @@
+'use client'
+import React from 'react';
 import {
   Grid,
   Link,
@@ -7,8 +9,24 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { CustomTable } from "./CustomTable";
+import { useAppSelector } from '@/lib/hooks';
 
 export const CustomDashboardContent = () => {
+  const users = useAppSelector((state) => state.auth.users);
+
+  const columns = [
+    { id: 'name', label: 'Name' },
+    { id: 'email', label: 'Email' },
+    { id: 'role', label: 'Role' },
+  ];
+
+  const rows = users.map(user => ({
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  }));
+
   return (
     <Box
       component="main"
@@ -25,7 +43,6 @@ export const CustomDashboardContent = () => {
       <Toolbar />
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
-          {/* Chart */}
           <Grid item xs={12} md={8} lg={9}>
             <Paper
               sx={{
@@ -54,6 +71,7 @@ export const CustomDashboardContent = () => {
             ></Paper>
           </Grid>
         </Grid>
+        <CustomTable columns={columns} rows={rows} />
         <Typography
           variant="body2"
           color="text.secondary"

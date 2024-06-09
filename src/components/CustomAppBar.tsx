@@ -2,6 +2,10 @@ import React from 'react';
 import { AppBar, AppBarProps, IconButton, Toolbar, Typography, Badge, styled } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { useAppDispatch } from '@/lib/hooks'
+import { logout } from '@/lib/actions/authActions'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import Link from 'next/link';
 
 const drawerWidth: number = 240;
 
@@ -33,6 +37,12 @@ interface CustomAppBarProps {
 }
 
 export const CustomAppBar = ({ open, toggleDrawer }: CustomAppBarProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <StyledAppBar position="absolute" open={open}>
       <Toolbar
@@ -66,7 +76,12 @@ export const CustomAppBar = ({ open, toggleDrawer }: CustomAppBarProps) => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
+        <Link href='/' passHref>
+          <IconButton color="inherit" onClick={handleLogout}>
+            <ExitToAppIcon />
+          </IconButton>
+        </Link>
       </Toolbar>
     </StyledAppBar>
-  );
-};
+  )
+}
