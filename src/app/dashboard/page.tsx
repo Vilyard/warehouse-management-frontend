@@ -1,10 +1,13 @@
+import React from 'react';
+import { CustomDashboardContent } from '@/components/CustomDashboardContent';
 import { DashboardLayout } from '@/components/DashboardLayout';
-import React, { FC } from 'react';
 
-const Dashboard: FC = () => {
+const DashboardPage = () => {
   return (
-    <DashboardLayout />
+    <DashboardLayout>
+      <CustomDashboardContent />
+    </DashboardLayout>
   );
-}
+};
 
-export default Dashboard;
+export default DashboardPage;
