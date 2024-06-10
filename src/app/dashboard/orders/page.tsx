@@ -2,31 +2,38 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Grid, Paper, Toolbar, Typography, Link } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { fetchUsers } from '@/lib/actions/authActions'; // Adjust this import path based on your file structure
+import { fetchOrders } from '@/lib/actions/authActions'; 
 import { CustomTable } from '@/components/CustomTable';
 import { DashboardLayout } from '@/components/DashboardLayout';
 
 const OrdersPage = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.auth.users);
+  const orders = useAppSelector((state) => state.auth.orders);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchOrders());
   }, [dispatch]);
 
   const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'phone', label: 'Phone' },
-    { id: 'address', label: 'Address' },
+    { id: 'orderNumber', label: 'Order Number' },
+    { id: 'customerName', label: 'Customer Name' },
+    { id: 'customerEmail', label: 'Customer Email' },
+    { id: 'products', label: 'Products' },
+    { id: 'totalAmount', label: 'Total Amount'},
+    { id: 'status', label: 'Status'}
   ];
 
-  const rows = users.map(user => ({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
+  const rows = orders.map(order => ({
+    orderNumber: order.orderNumber,
+    customerName: order.customerName,
+    customerEmail: order.customerEmail,
+    products: order.products,
+    totalAmount: order.totalAmount,
+    status: order.status
   }));
+  
+  // console.log(rows)
+  console.log(orders)
 
   return (
     <DashboardLayout>
