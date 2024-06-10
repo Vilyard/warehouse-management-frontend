@@ -7,9 +7,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { loginRequest, fetchUsers } from "@/lib/actions/authActions";
+import { loginRequest, fetchCustomers } from "@/lib/actions/authActions";
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -22,12 +22,7 @@ export const LoginForm = () => {
 
   const handleLoginSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Token exists in local storage:', localStorage.getItem('token'));
     dispatch(loginRequest(email, password));
-  };
-
-  const handleGetUsers = () => {
-    dispatch(fetchUsers());
   };
 
   return (
@@ -85,15 +80,6 @@ export const LoginForm = () => {
             {isLoading ? "Signing In..." : "Sign In"}
           </Button>
         </Box>
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={handleGetUsers}
-          disabled={isLoading}
-        >
-          {isLoading ? "Loading Users..." : "Get Users"}
-        </Button>
         <Box sx={{ mt: 3 }}>
           {users && users.length > 0 && (
             <Typography component="h2" variant="h6">

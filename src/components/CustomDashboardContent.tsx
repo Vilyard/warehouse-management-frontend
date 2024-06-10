@@ -9,24 +9,8 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { CustomTable } from "./CustomTable";
-import { useAppSelector } from '@/lib/hooks';
 
 export const CustomDashboardContent = () => {
-  const users = useAppSelector((state) => state.auth.users);
-
-  const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'role', label: 'Role' },
-  ];
-
-  const rows = users.map(user => ({
-    name: user.name,
-    email: user.email,
-    role: user.role,
-  }));
-
   return (
     <Box
       component="main"
@@ -71,15 +55,14 @@ export const CustomDashboardContent = () => {
             ></Paper>
           </Grid>
         </Grid>
-        <CustomTable columns={columns} rows={rows} />
         <Typography
           variant="body2"
           color="text.secondary"
           align="center"
           sx={{ mt: 4 }}
         >
-          <Link color="inherit" href="https://mui.com/">
-            Your Website
+          <Link color="inherit" href="https://github.com/Vilyard">
+            Vilyards Website
           </Link>{" "}
           {new Date().getFullYear()}.
         </Typography>

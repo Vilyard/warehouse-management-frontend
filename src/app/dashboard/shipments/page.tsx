@@ -2,30 +2,36 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Grid, Paper, Toolbar, Typography, Link } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { fetchUsers } from '@/lib/actions/authActions'; // Adjust this import path based on your file structure
+import { fetchShipments } from '@/lib/actions/authActions';
 import { CustomTable } from '@/components/CustomTable';
 import { DashboardLayout } from '@/components/DashboardLayout';
 
 const ShipmentsPage = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.auth.users);
+  const shipments = useAppSelector((state) => state.auth.shipments);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchShipments());
   }, [dispatch]);
 
   const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'phone', label: 'Phone' },
-    { id: 'address', label: 'Address' },
+    { id: 'shipmentNumber', label: 'Shipment Number' },
+    { id: 'orderId', label: 'Order ID' },
+    { id: 'carrier', label: 'Carrier' },
+    { id: 'trackingNumber', label: 'Tracking Number' },
+    { id: 'status', label: 'Status' },
+    { id: 'shippedAt', label: 'Shipped At' },
+    { id: 'deliveredAt', label: 'Delivered At' },
   ];
 
-  const rows = users.map(user => ({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
+  const rows = shipments.map(shipment => ({
+    shipmentNumber: shipment.shipmentNumber,
+    orderId: shipment.orderId,
+    carrier: shipment.carrier,
+    trackingNumber: shipment.trackingNumber,
+    status: shipment.status,
+    shippedAt: shipment.shippedAt,
+    deliveredAt: shipment.deliveredAt,
   }));
 
   return (

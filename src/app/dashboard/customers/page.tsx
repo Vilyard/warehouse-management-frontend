@@ -2,16 +2,15 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Grid, Paper, Toolbar, Typography, Link } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { fetchUsers } from '@/lib/actions/authActions'; // Adjust this import path based on your file structure
+import { fetchCustomers } from '@/lib/actions/authActions';
 import { CustomTable } from '@/components/CustomTable';
 import { DashboardLayout } from '@/components/DashboardLayout';
 
 const CustomersPage = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.auth.users);
-
+  const customers = useAppSelector((state) => state.auth.customers);
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchCustomers());
   }, [dispatch]);
 
   const columns = [
@@ -21,11 +20,11 @@ const CustomersPage = () => {
     { id: 'address', label: 'Address' },
   ];
 
-  const rows = users.map(user => ({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
+  const rows = customers.map((customer) => ({
+    name: customer.name,
+    email: customer.email,
+    phone: customer.phone,
+    address: customer.address,
   }));
 
   return (

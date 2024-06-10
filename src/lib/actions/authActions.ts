@@ -1,36 +1,61 @@
-import { apiRequest } from '../apiRequests';
+import { apiRequest } from "../apiRequests";
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  FETCH_USERS_REQUEST,
-  FETCH_USERS_SUCCESS,
-  FETCH_USERS_FAILURE,
   LOGOUT,
-} from './actionTypes';
+} from "./actionTypes";
 
 export const loginRequest = (email: string, password: string) => {
   return apiRequest({
-    method: 'post',
-    url: '/api/login',
+    method: "post",
+    url: "/api/login",
     data: { email, password },
     requestType: LOGIN_REQUEST,
     successType: LOGIN_SUCCESS,
     failureType: LOGIN_FAILURE,
     onSuccess: (data) => {
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("token", data.token);
     },
   });
 };
 
-export const fetchUsers = () => {
+export const fetchData = ({ endpoint }: any) => {
   return apiRequest({
-    method: 'get',
-    url: '/api/customer',
-    requestType: FETCH_USERS_REQUEST,
-    successType: FETCH_USERS_SUCCESS,
-    failureType: FETCH_USERS_FAILURE,
+    method: "get",
+    url: `/api/${endpoint}`,
+    requestType: `FETCH_${endpoint.toUpperCase()}_REQUEST`,
+    successType: `FETCH_${endpoint.toUpperCase()}_SUCCESS`,
+    failureType: `FETCH_${endpoint.toUpperCase()}_FAILURE`,
   });
+};
+
+export const fetchUsers = () => {
+  return fetchData({ endpoint: "users" });
+};
+
+export const fetchCustomers = () => {
+  return fetchData({ endpoint: "customer" });
+};
+
+export const fetchInventories = () => {
+  return fetchData({ endpoint: "inventory" });
+};
+
+export const fetchOrders = () => {
+  return fetchData({ endpoint: "orders" });
+};
+
+export const fetchProducts = () => {
+  return fetchData({ endpoint: "product" });
+};
+
+export const fetchShipments = () => {
+  return fetchData({ endpoint: "shipment" });
+};
+
+export const fetchSuppliers = () => {
+  return fetchData({ endpoint: "supplier" });
 };
 
 export const logout = () => ({

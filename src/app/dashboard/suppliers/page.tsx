@@ -2,30 +2,30 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Grid, Paper, Toolbar, Typography, Link } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { fetchUsers } from '@/lib/actions/authActions'; // Adjust this import path based on your file structure
+import { fetchSuppliers } from '@/lib/actions/authActions'; 
 import { CustomTable } from '@/components/CustomTable';
 import { DashboardLayout } from '@/components/DashboardLayout';
 
 const SuppliersPage = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.auth.users);
+  const suppliers = useAppSelector((state) => state.auth.suppliers);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchSuppliers());
   }, [dispatch]);
 
   const columns = [
     { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'phone', label: 'Phone' },
-    { id: 'address', label: 'Address' },
+    { id: 'contactName', label: 'Contact Name' },
+    { id: 'contactEmail', label: 'Contact Email' },
+    { id: 'contactPhone', label: 'Contact Phone' },
   ];
 
-  const rows = users.map(user => ({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
+  const rows = suppliers.map(supplier => ({
+    name: supplier.name,
+    contactName: supplier.contactName,
+    contactEmail: supplier.contactEmail,
+    contactPhone: supplier.contactPhone,
   }));
 
   return (

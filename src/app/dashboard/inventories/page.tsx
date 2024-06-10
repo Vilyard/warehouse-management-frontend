@@ -2,30 +2,30 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Grid, Paper, Toolbar, Typography, Link } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { fetchUsers } from '@/lib/actions/authActions'; // Adjust this import path based on your file structure
+import { fetchInventories } from '@/lib/actions/authActions';
 import { CustomTable } from '@/components/CustomTable';
 import { DashboardLayout } from '@/components/DashboardLayout';
 
 const InventoriesPage = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.auth.users);
+  const inventories = useAppSelector((state) => state.auth.inventories);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchInventories());
   }, [dispatch]);
 
   const columns = [
-    { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'phone', label: 'Phone' },
-    { id: 'address', label: 'Address' },
+    { id: 'productId', label: 'Product ID' },
+    { id: 'quantity', label: 'Quantity' },
+    { id: 'location', label: 'Location' },
+    { id: 'createdAt', label: 'Created At' },
   ];
 
-  const rows = users.map(user => ({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
+  const rows = inventories.map((inventory) => ({
+    productId: inventory.productId,
+    quantity: inventory.quantity,
+    location: inventory.location,
+    createdAt: inventory.createdAt,
   }));
 
   return (

@@ -2,30 +2,34 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Grid, Paper, Toolbar, Typography, Link } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { fetchUsers } from '@/lib/actions/authActions'; // Adjust this import path based on your file structure
+import { fetchProducts } from '@/lib/actions/authActions';
 import { CustomTable } from '@/components/CustomTable';
 import { DashboardLayout } from '@/components/DashboardLayout';
 
 const ProductsPage = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.auth.users);
+  const products = useAppSelector((state) => state.auth.products);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   const columns = [
     { id: 'name', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'phone', label: 'Phone' },
-    { id: 'address', label: 'Address' },
+    { id: 'description', label: 'Description' },
+    { id: 'price', label: 'Price' },
+    { id: 'category', label: 'Category' },
+    { id: 'sku', label: 'SKU' },
+    { id: 'suppliers', label: 'Suppliers' },
   ];
 
-  const rows = users.map(user => ({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    address: user.address,
+  const rows = products.map(product => ({
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    category: product.category,
+    sku: product.sku,
+    suppliers: product.suppliers,
   }));
 
   return (

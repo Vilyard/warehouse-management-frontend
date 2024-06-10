@@ -17,15 +17,13 @@ const UsersPage = () => {
   const columns = [
     { id: 'name', label: 'Name' },
     { id: 'email', label: 'Email' },
-    { id: 'phone', label: 'Phone' },
-    { id: 'address', label: 'Address' },
+    { id: 'role', label: 'Role' },
   ];
 
   const rows = users.map(user => ({
     name: user.name,
     email: user.email,
-    phone: user.phone,
-    address: user.address,
+    role: user.role
   }));
 
   return (
